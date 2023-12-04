@@ -27,5 +27,4 @@ public interface CityRepository extends JpaRepository<City, Long> {
     @Query(value = "DELETE FROM city WHERE id = ?1 RETURNING *", nativeQuery = true)
     Optional<City> deleteByCityId(Long id);
 
-
 }
