@@ -1,19 +1,20 @@
 package com.example.cityinformationapi.controller;
 
 import com.example.cityinformationapi.dto.LoginDto;
-import com.example.cityinformationapi.service.AccountService;
+import com.example.cityinformationapi.service.JwtService;
 import com.example.cityinformationapi.validation.LoginValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 
-import javax.validation.Valid;
 
 @RestController
 @Validated
@@ -22,19 +23,23 @@ import javax.validation.Valid;
 public class LoginController {
 
     @Autowired
-    private AccountService userService;
-    @Autowired
     private LoginValidation loginValidation;
+    @Autowired
+    private JwtService jwtService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginDto dto) {
-        if (loginValidation.Validation(dto)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect input values!");
+    public String authenticateAndGetToken(@RequestBody LoginDto dto) {
+        if(loginValidation.validate(dto)){
+            throw new UsernameNotFoundException("Invalid user parameters !");
         }
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(userService.login(dto));
-        } catch(Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
+        if (authentication.isAuthenticated()) {
+            return jwtService.generateToken(dto.getEmail());
+        } else {
+            throw new UsernameNotFoundException("Invalid user request !");
         }
     }
+
 }
