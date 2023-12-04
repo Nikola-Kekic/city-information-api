@@ -5,7 +5,7 @@ import lombok.*;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class CreateCityDto implements Dto{
+public class CityDto implements Dto{
 
     private String name;
     private String country;
@@ -13,7 +13,7 @@ public class CreateCityDto implements Dto{
     private int population;
     private int tempCelsius;
 
-    public CreateCityDto(String name, String country, String stateOrRegion, int population, int tempCelsius) {
+    public CityDto(String name, String country, String stateOrRegion, int population, int tempCelsius) {
         this.name = name;
         this.country =country;
         this.stateOrRegion = stateOrRegion;

@@ -1,6 +1,6 @@
 package com.example.cityinformationapi.controller;
 
-import com.example.cityinformationapi.dto.CreateCityDto;
+import com.example.cityinformationapi.dto.CityDto;
 import com.example.cityinformationapi.service.CityService;
 import com.example.cityinformationapi.validation.CityValidation;
 import lombok.RequiredArgsConstructor;
@@ -23,17 +23,29 @@ public class CityController {
     @Autowired
     private CityValidation cityValidation;
 
-    @PostMapping()
-    public ResponseEntity<?> createCity(@Valid @RequestBody CreateCityDto createCityDto) {
+    @PostMapping("/create")
+    public ResponseEntity<?> createCity(@Valid @RequestBody CityDto cityDto) {
 
-        if (!cityValidation.Validation(createCityDto)) {
+        if (!cityValidation.Validation(cityDto)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect input values!");
         }
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(cityService.save(createCityDto));
+            return ResponseEntity.status(HttpStatus.OK).body(cityService.save(cityDto));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> updateCity(@Valid @RequestBody CityDto cityDto) {
+
+        if (!cityValidation.Validation(cityDto)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect input values!");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(cityService.update(cityDto));
+
+    }
+
+
 
 }

@@ -1,6 +1,6 @@
 package com.example.cityinformationapi.validation;
 
-import com.example.cityinformationapi.dto.CreateCityDto;
+import com.example.cityinformationapi.dto.CityDto;
 import com.example.cityinformationapi.util.CountryYamlReader;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class CityValidation {
     private CityValidation(CountryYamlReader countryYamlReader) {
         this.countryYamlReader = countryYamlReader;
     }
-    public boolean Validation(CreateCityDto dto) {
+    public boolean Validation(CityDto dto) {
         Map<String,Object> countries = countryYamlReader.readCountries();
 
         return !dto.getName().isEmpty() && countries.containsValue(dto.getCountry()) &&

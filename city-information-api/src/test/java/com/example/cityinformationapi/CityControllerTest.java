@@ -1,7 +1,7 @@
 package com.example.cityinformationapi;
 
 import com.example.cityinformationapi.controller.CityController;
-import com.example.cityinformationapi.dto.CreateCityDto;
+import com.example.cityinformationapi.dto.CityDto;
 import com.example.cityinformationapi.model.City;
 import com.example.cityinformationapi.service.impl.CityServiceImpl;
 import com.example.cityinformationapi.validation.CityValidation;
@@ -33,7 +33,7 @@ public class CityControllerTest {
     @InjectMocks
     private CityController cityController;
 
-    private final CreateCityDto sentDto = new CreateCityDto();
+    private final CityDto sentDto = new CityDto();
     private final Optional<City> receivedModel =  Optional.of(new City());
 
 

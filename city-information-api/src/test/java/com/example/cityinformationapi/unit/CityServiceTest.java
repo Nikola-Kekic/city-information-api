@@ -1,6 +1,6 @@
 package com.example.cityinformationapi.unit;
 
-import com.example.cityinformationapi.dto.CreateCityDto;
+import com.example.cityinformationapi.dto.CityDto;
 import com.example.cityinformationapi.model.City;
 import com.example.cityinformationapi.repository.CityRepository;
 import com.example.cityinformationapi.service.impl.CityServiceImpl;
@@ -27,12 +27,12 @@ public class CityServiceTest {
     private CityRepository cityRepository;
     @InjectMocks
     private CityServiceImpl cityService;
-    private CreateCityDto cityDto;
+    private CityDto cityDto;
     private City cityModel;
 
     @BeforeEach
     public void setUp() {
-        cityDto = new CreateCityDto( "Vienna", "Austria",  "Austria", 1897000,  6);
+        cityDto = new CityDto( "Vienna", "Austria",  "Austria", 1897000,  6);
         cityModel = new City(1L, cityDto.getName(), cityDto.getCountry(), cityDto.getStateOrRegion(), cityDto.getPopulation(),  cityDto.getTempCelsius());
     }
 
