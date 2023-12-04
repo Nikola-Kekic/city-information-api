@@ -14,7 +14,7 @@ public class CityValidation {
     private CityValidation(CountryYamlReader countryYamlReader) {
         this.countryYamlReader = countryYamlReader;
     }
-    public boolean Validation(CityDto dto) {
+    public boolean validate(CityDto dto) {
         Map<String,Object> countries = countryYamlReader.readCountries();
 
         return !dto.getName().isEmpty() && countries.containsValue(dto.getCountry()) &&

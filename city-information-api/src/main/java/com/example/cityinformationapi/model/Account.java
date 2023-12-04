@@ -21,6 +21,9 @@ public class Account implements Entity {
         @Column(name = "password", nullable = false)
         private String password;
 
+        @Column(name = "roles")
+        private String roles;
+
         public Account(){
         }
 
