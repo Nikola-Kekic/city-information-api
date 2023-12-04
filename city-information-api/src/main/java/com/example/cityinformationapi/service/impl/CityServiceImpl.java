@@ -10,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -29,7 +30,6 @@ public class CityServiceImpl implements CityService {
         existingCity.ifPresent(city -> {
             throw new DataIntegrityViolationException("City with the same name and country already exists");
         });
-
         return Optional.of(cityRepository.save(mapper.toEntity(cityDto)));
     }
 
@@ -41,20 +41,37 @@ public class CityServiceImpl implements CityService {
         if(existingCity.isEmpty()) {
             throw new DataIntegrityViolationException("City with that name and that country doesn't exist");
         }
-
         return cityRepository.updateCity(city.getName(), city.getCountry(), city.getStateOrRegion(), city.getPopulation(),city.getTempCelsius());
     }
 
     @Override
     public Optional<City> delete(Long id) {
-        Optional<City> city= cityRepository.findById(id);
+        Optional<City> city = cityRepository.findById(id);
 
         if(city.isEmpty()) {
             throw new DataIntegrityViolationException("City with that id doesn't exist");
         }
-
         return cityRepository.deleteByCityId(id);
     }
 
+    @Override
+    public List<City> readAll() {
+        List<City> cities = cityRepository.findAll();
+
+        if(cities.isEmpty()) {
+            throw new DataIntegrityViolationException("There aren't any city in database");
+        }
+        return cities;
+    }
+
+    @Override
+    public Optional<City> readOne(Long id) {
+        Optional<City> city = cityRepository.findById(id);
+
+        if(city.isEmpty()) {
+            throw new DataIntegrityViolationException("City with that id doesn't exists");
+        }
+        return city;
+    }
 
 }
