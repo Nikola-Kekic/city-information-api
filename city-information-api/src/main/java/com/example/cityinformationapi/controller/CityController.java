@@ -49,7 +49,7 @@ public class CityController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCity(@PathVariable Long id) {
 
         try {
@@ -59,6 +59,22 @@ public class CityController {
         }
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<?> readAllCity() {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(cityService.readAll());
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> readCity(@PathVariable Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(cityService.readOne(id));
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 
 }
