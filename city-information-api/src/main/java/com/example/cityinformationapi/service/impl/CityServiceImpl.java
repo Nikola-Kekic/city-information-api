@@ -45,5 +45,16 @@ public class CityServiceImpl implements CityService {
         return cityRepository.updateCity(city.getName(), city.getCountry(), city.getStateOrRegion(), city.getPopulation(),city.getTempCelsius());
     }
 
+    @Override
+    public Optional<City> delete(Long id) {
+        Optional<City> city= cityRepository.findById(id);
+
+        if(city.isEmpty()) {
+            throw new DataIntegrityViolationException("City with that id doesn't exist");
+        }
+
+        return cityRepository.deleteByCityId(id);
+    }
+
 
 }

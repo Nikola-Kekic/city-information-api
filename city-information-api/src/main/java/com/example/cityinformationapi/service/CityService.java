@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface CityService {
     Optional<City> save(CityDto cityDto);
     Optional<City> update(CityDto cityDto);
+    Optional<City> delete(Long id);
+
 }

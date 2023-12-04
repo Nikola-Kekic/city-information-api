@@ -42,8 +42,21 @@ public class CityController {
         if (!cityValidation.Validation(cityDto)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect input values!");
         }
-        return ResponseEntity.status(HttpStatus.OK).body(cityService.update(cityDto));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(cityService.update(cityDto));
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteCity(@PathVariable Long id) {
+
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(cityService.delete(id));
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
 
