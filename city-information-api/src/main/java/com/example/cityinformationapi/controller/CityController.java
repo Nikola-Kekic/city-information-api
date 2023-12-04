@@ -1,7 +1,6 @@
 package com.example.cityinformationapi.controller;
 
 import com.example.cityinformationapi.dto.CreateCityDto;
-import com.example.cityinformationapi.model.City;
 import com.example.cityinformationapi.service.CityService;
 import com.example.cityinformationapi.validation.CityValidation;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @Validated
