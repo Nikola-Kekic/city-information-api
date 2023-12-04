@@ -11,9 +11,9 @@ public class CityDto implements Dto{
     private String country;
     private String stateOrRegion;
     private int population;
-    private int tempCelsius;
+    private double tempCelsius;
 
-    public CityDto(String name, String country, String stateOrRegion, int population, int tempCelsius) {
+    public CityDto(String name, String country, String stateOrRegion, int population, double tempCelsius) {
         this.name = name;
         this.country =country;
         this.stateOrRegion = stateOrRegion;

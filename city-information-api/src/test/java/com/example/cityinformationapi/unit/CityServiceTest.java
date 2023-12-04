@@ -32,7 +32,7 @@ public class CityServiceTest {
 
     @BeforeEach
     public void setUp() {
-        cityDto = new CityDto( "Vienna", "Austria",  "Austria", 1897000,  6);
+        cityDto = new CityDto( "Vienna", "Austria",  "Austria", 1897000,  6.2);
         cityModel = new City(1L, cityDto.getName(), cityDto.getCountry(), cityDto.getStateOrRegion(), cityDto.getPopulation(),  cityDto.getTempCelsius());
     }
 

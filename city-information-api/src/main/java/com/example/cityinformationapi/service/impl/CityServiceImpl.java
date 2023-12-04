@@ -1,5 +1,6 @@
 package com.example.cityinformationapi.service.impl;
 
+import com.example.cityinformationapi.client.WeatherApiClient;
 import com.example.cityinformationapi.dto.CityDto;
 import com.example.cityinformationapi.mapper.CityMapper;
 import com.example.cityinformationapi.model.City;
@@ -22,6 +23,8 @@ public class CityServiceImpl implements CityService {
     private CityRepository cityRepository;
     @Autowired
     private CityMapper mapper;
+    @Autowired
+    private WeatherApiClient weatherApiClient;
 
     @Override
     public Optional<City> save(CityDto cityDto) {
@@ -30,6 +33,7 @@ public class CityServiceImpl implements CityService {
         existingCity.ifPresent(city -> {
             throw new DataIntegrityViolationException("City with the same name and country already exists");
         });
+
         return Optional.of(cityRepository.save(mapper.toEntity(cityDto)));
     }
 
@@ -71,6 +75,8 @@ public class CityServiceImpl implements CityService {
         if(city.isEmpty()) {
             throw new DataIntegrityViolationException("City with that id doesn't exists");
         }
+        city.get().setTempCelsius(this.weatherApiClient.getWeatherInfo(city.get().getName()));
+
         return city;
     }
 }

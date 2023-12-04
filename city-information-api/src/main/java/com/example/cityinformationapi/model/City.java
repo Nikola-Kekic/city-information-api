@@ -28,13 +28,13 @@ public class City implements Entity {
     private int population;
 
     @Column(name = "tempCelsius", nullable = false)
-    private int tempCelsius;
+    private double tempCelsius;
 
 
     public City(){
     }
 
-    public City(String name, String country, String stateOrRegion, int population, int tempCelsius) {
+    public City(String name, String country, String stateOrRegion, int population, double tempCelsius) {
         this.name = name;
         this.country =country;
         this.stateOrRegion = stateOrRegion;
