@@ -30,9 +30,9 @@ public class CityServiceImpl implements CityService {
     public Optional<City> save(CityDto cityDto) {
         Optional<City> existingCity = cityRepository.findByNameAndCountry(cityDto.getName(), cityDto.getCountry());
 
-        existingCity.ifPresent(city -> {
+        if(existingCity.isPresent()) {
             throw new DataIntegrityViolationException("City with the same name and country already exists");
-        });
+        }
 
         return Optional.of(cityRepository.save(mapper.toEntity(cityDto)));
     }
