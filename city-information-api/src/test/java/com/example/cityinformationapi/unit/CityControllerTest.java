@@ -1,4 +1,4 @@
-package com.example.cityinformationapi;
+package com.example.cityinformationapi.unit;
 
 import com.example.cityinformationapi.controller.CityController;
 import com.example.cityinformationapi.dto.CityDto;
@@ -39,7 +39,7 @@ public class CityControllerTest {
 
     @Test
     public void testCreateCity_Success() throws Exception {
-        when(cityValidation.Validation(sentDto)).thenReturn(true);
+        when(cityValidation.validate(sentDto)).thenReturn(true);
         when(cityService.save(sentDto)).thenReturn(receivedModel);
 
         ResponseEntity<?> responseEntity = cityController.createCity(sentDto);
@@ -51,7 +51,7 @@ public class CityControllerTest {
 
     @Test
     public void testCreateCity_Fail() throws Exception {
-        when(cityValidation.Validation(sentDto)).thenReturn(false);
+        when(cityValidation.validate(sentDto)).thenReturn(false);
         when(cityService.save(sentDto)).thenReturn(receivedModel);
 
         ResponseEntity<?> responseEntity = cityController.createCity(sentDto);
