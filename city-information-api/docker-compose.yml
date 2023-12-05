@@ -6,6 +6,7 @@ services:
       POSTGRES_USER: nikola
       POSTGRES_PASSWORD: kekic
       PGADMIN: /data/postgres
+      POSTGRES_DB: city_information
     volumes:
       - postgres:/data/postgres
     ports:
@@ -26,6 +27,19 @@ services:
     ports:
       - "5050:80"
     networks:
+      - postgres
+    restart: unless-stopped
+
+  city_information_api:
+    container_name: city_information_api
+    build: .
+    ports:
+      - "8080:8080"
+    networks:
+      - postgres
+    environment:
+      spring.datasource.url: "jdbc:postgresql://postgres:5432/city_information"
+    depends_on:
       - postgres
     restart: unless-stopped
 
